@@ -2,6 +2,7 @@
 all:
   vars:
     vpn_config_dir: /srv/docker-vpn-pia
+    vpn_container_name: docker-vpn
     vpn_timezone: Etc/UTC
     vpn_username:
     vpn_password:

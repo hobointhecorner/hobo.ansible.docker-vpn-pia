@@ -2,7 +2,7 @@
 services:
   vpn-pia:
     image: wiorca/docker-pia
-    container_name: vpn-pia
+    container_name: {{ vpn_container_name }}
     hostname: vpn-pia
     restart: unless-stopped
     env_file: {{ vpn_config_dir }}/config.env
