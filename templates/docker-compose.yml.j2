@@ -1,0 +1,13 @@
+---
+services:
+  vpn-pia:
+    image: wiorca/docker-pia
+    container_name: vpn-pia
+    hostname: vpn-pia
+    restart: unless-stopped
+    env_file: {{ vpn_config_dir }}/config.env
+    cap_add:
+      - NET_ADMIN
+    dns: {{ pia_dns_servers | to_json }}
+    volumes:
+      - {{ vpn_config_dir }}/config:/config

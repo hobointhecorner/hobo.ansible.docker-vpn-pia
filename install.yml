@@ -1,0 +1,48 @@
+---
+- name: Install PIA VPN container
+  hosts: all
+  handlers:
+    - name: Reload vpn service
+      become: true
+      ansible.builtin.service:
+        name: docker-vpn.service
+        enabled: true
+        state: restarted
+        daemon_reload: true
+  roles:
+    - role: service_user
+  tasks:
+    - name: Ensure configuration directories
+      become: true
+      notify: Reload vpn service
+      loop:
+        - "{{ vpn_config_dir }}/config"
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+        owner: "{{ service_user_name }}"
+        group: "{{ service_group_name }}"
+        mode: "2751"
+
+    - name: Template docker config files
+      become: true
+      notify: Reload vpn service
+      loop:
+        - docker-compose.yml
+        - config.env
+      ansible.builtin.template:
+        src: "{{ item }}.j2"
+        dest: "{{ vpn_config_dir }}/{{ item }}"
+        owner: "{{ service_user_name }}"
+        group: "{{ service_user_name }}"
+        mode: "750"
+
+    - name: Template service file
+      become: true
+      notify: Reload vpn service
+      ansible.builtin.template:
+        src: docker-vpn.service.j2
+        dest: /etc/systemd/system/docker-vpn.service
+        owner: root
+        group: root
+        mode: "755"
