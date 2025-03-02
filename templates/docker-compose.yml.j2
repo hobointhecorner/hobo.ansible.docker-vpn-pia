@@ -8,6 +8,6 @@ services:
     env_file: {{ vpn_config_dir }}/config.env
     cap_add:
       - NET_ADMIN
-    dns: {{ pia_dns_servers | to_json }}
+    dns: {{ vpn_dns_servers | to_json }}
     volumes:
       - {{ vpn_config_dir }}/config:/config

@@ -2,17 +2,18 @@
 all:
   vars:
     vpn_config_dir: /srv/docker-vpn-pia
-    timezone: Etc/UTC
-
-    pia_username:
-    pia_password:
-    pia_dns_servers:
+    vpn_timezone: Etc/UTC
+    vpn_username:
+    vpn_password:
+    vpn_dns_servers:
       - '1.1.1.1'
 
+    # https://github.com/hobointhecorner/hobo.ansible.service_user
     service_user_name: docker-vpn-pia
-    service_user_id: 8080
     service_group_name: docker-vpn-pia
+    service_user_id: 8080
     service_user_group_id: 8080
-    service_additional_groups: []
-    service_additional_group_members: []
-    service_extended_group_membership: false
+    service_user_additional_groups:
+      - docker
+    service_user_additional_group_members: []
+    service_user_extended_group_membership: false
