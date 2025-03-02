@@ -8,6 +8,10 @@ all:
     vpn_password:
     vpn_dns_servers:
       - '1.1.1.1'
+    vpn_protocol: openvpn # openvpn | wireguard
+    vpn_port_forward: false
+    vpn_region: auto
+    vpn_debug_logging: false
 
     # https://github.com/hobointhecorner/hobo.ansible.service_user
     service_user_name: docker-vpn-pia
